@@ -1,0 +1,1 @@
+> This is just the test for wechat created by node.js and koa.

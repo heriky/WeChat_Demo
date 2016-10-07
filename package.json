@@ -1,0 +1,30 @@
+{
+  "name": "wechat_demo",
+  "version": "1.0.0",
+  "description": "This is the wechat test using node.js",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/heriky/WeChat_Demo.git"
+  },
+  "keywords": [
+    "wechat",
+    "node.js"
+  ],
+  "author": "_hankang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/heriky/WeChat_Demo/issues"
+  },
+  "homepage": "https://github.com/heriky/WeChat_Demo",
+  "dependencies": {
+    "koa": "^1.2.4",
+    "raw-body": "^2.1.7",
+    "sha1": "^1.1.1",
+    "superagent": "^2.3.0",
+    "xml2js": "^0.4.17"
+  }
+}

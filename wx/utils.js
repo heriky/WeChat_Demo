@@ -1,5 +1,6 @@
 const xml2js = require('xml2js');
 const tpl = require('./tpl');
+const sha1 = require('sha1');
 
 exports.parseXML = function(xml){
 	return new Promise((resolve, reject)=>{
@@ -50,12 +51,28 @@ exports.formatXML = formatXML;
 // 从模板渲染回复的消息,重点是生成不同类型从content
 exports.renderMsg = function(rawReply, recvMsg){
 	// 组装渲染回复消息所需的对象
+	const msgType = (rawReply&&rawReply.type) || 'text' ;
+	const content = (rawReply&&rawReply.content) || '没有设置消息，返回缺省值';
 	var info = {
 		toUserName: recvMsg.FromUserName,
 		fromUserName: recvMsg.ToUserName,
-		msgType: rawReply.type, // 这里是回复消息的类型，而不是recvMsg的类型
-		content: rawReply.content // content是回复的具体值，需要嵌入到xml的合适位置去才能返回给微信
+		msgType: msgType, // 这里是回复消息的类型，而不是recvMsg的类型
+		content: content // content是回复的具体值，需要嵌入到xml的合适位置去才能返回给微信
 	} ; 
 
 	return tpl(info);
+}
+
+
+// jsapi_ticket 签名算法，得到签名值
+
+exports.ticketSign = function(noncestr, ticket, timestamp, url){
+	var tmp = [
+		`jsapi_ticket=${ticket}`,
+		`noncestr=${noncestr}`,
+		`timestamp=${timestamp}`,
+		`url=${url}`
+	];
+	const rs = tmp.sort().join('&');
+	return sha1(rs) ;
 }
